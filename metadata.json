@@ -1,0 +1,6 @@
+{
+  "name": "ELIF FOR LIFE - Fresh Mineral Water",
+  "description": "Modern landing page for ELIF FOR LIFE mineral water brand, featuring products, distributors, and health benefits.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
