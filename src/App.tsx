@@ -131,8 +131,16 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X className={isScrolled ? 'text-brand-dark' : 'text-white'} /> : <Menu className={isScrolled ? 'text-brand-dark' : 'text-white'} />}
+        <button 
+          className="md:hidden p-3 -mr-3 flex items-center justify-center focus:outline-none transition-transform active:scale-95 text-white" 
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {isMobileMenuOpen ? (
+            <X className={`w-7 h-7 ${isScrolled ? 'text-brand-dark' : 'text-white'}`} />
+          ) : (
+            <Menu className={`w-7 h-7 ${isScrolled ? 'text-brand-dark' : 'text-white'}`} />
+          )}
         </button>
       </div>
 
@@ -269,7 +277,7 @@ const About = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="relative rounded-[40px] overflow-hidden shadow-2xl"
+            className="relative rounded-[32px] sm:rounded-[40px] overflow-hidden shadow-2xl aspect-[4/3] xs:aspect-[16/10] sm:aspect-video lg:aspect-auto lg:h-[480px]"
           >
             <img
               src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=800"
@@ -277,8 +285,8 @@ const About = () => {
               referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
-            <div className="absolute bottom-6 left-6 right-6 glass-card p-6 rounded-2xl">
-              <p className="text-brand-dark italic">"Elif bukan sekadar air mineral, Elif adalah komitmen kami untuk kesehatan dan masa depan."</p>
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 glass-card p-4 sm:p-6 rounded-2xl">
+              <p className="text-brand-dark italic text-xs sm:text-sm md:text-base">"Elif bukan sekadar air mineral, Elif adalah komitmen kami untuk kesehatan dan masa depan."</p>
             </div>
           </motion.div>
         </div>
@@ -365,7 +373,7 @@ const Products = () => {
                   Terpopuler
                 </div>
               )}
-              <div className="mb-6 rounded-2xl overflow-hidden aspect-square">
+              <div className="mb-6 rounded-2xl overflow-hidden aspect-[4/3] xs:aspect-[1.4/1] sm:aspect-square w-full">
                 <img 
                   src={product.image} 
                   alt={product.size} 
@@ -439,14 +447,14 @@ const Benefits = () => {
             </div>
           </div>
           
-          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-             <div className="space-y-4 pt-12">
-               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Quality Check" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
-               <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Healthy Lifestyle" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
+          <div className="lg:w-1/2 grid grid-cols-2 gap-3 sm:gap-4">
+             <div className="space-y-3 sm:space-y-4 pt-6 md:pt-12">
+               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Quality Check" className="rounded-2xl sm:rounded-3xl shadow-xl w-full h-[160px] xs:h-[200px] sm:h-[250px] object-cover" />
+               <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Healthy Lifestyle" className="rounded-2xl sm:rounded-3xl shadow-xl w-full h-[220px] xs:h-[280px] sm:h-[350px] object-cover" />
              </div>
-              <div className="space-y-4">
-                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Pure Mountain Spring" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
-                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Eco Friendly Nature" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
+              <div className="space-y-3 sm:space-y-4">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Pure Mountain Spring" className="rounded-2xl sm:rounded-3xl shadow-xl w-full h-[220px] xs:h-[280px] sm:h-[350px] object-cover" />
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Eco Friendly Nature" className="rounded-2xl sm:rounded-3xl shadow-xl w-full h-[160px] xs:h-[200px] sm:h-[250px] object-cover" />
               </div>
           </div>
         </div>
@@ -485,9 +493,9 @@ const HydrationCalculator = () => {
           <p className="text-brand-dark/60 max-w-2xl mx-auto">Tiap tubuh unik dan membutuhkan asupan hidrasi berbeda. Hitung rekomendasi konsumsi harian Anda &amp; produk ELIF yang paling sesuai.</p>
         </div>
 
-        <div className="bg-white rounded-[40px] shadow-xl border border-brand-blue/10 overflow-hidden grid lg:grid-cols-12 gap-0">
+        <div className="bg-white rounded-[28px] sm:rounded-[40px] shadow-xl border border-brand-blue/10 overflow-hidden grid lg:grid-cols-12 gap-0">
           {/* Inputs */}
-          <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+          <div className="lg:col-span-7 p-5 xs:p-7 sm:p-10 md:p-12 flex flex-col justify-between">
             <div>
               <h3 className="text-2xl font-bold text-brand-dark mb-8">Sesuaikan Parameter Tubuh Anda</h3>
               
@@ -515,7 +523,7 @@ const HydrationCalculator = () => {
               {/* Activity Level Buttons */}
               <div className="mb-10">
                 <span className="block font-semibold text-brand-dark/80 mb-4">Tingkat Aktivitas</span>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     { id: 'sedentary', label: 'Ringan', desc: 'Bekerja santai / duduk' },
                     { id: 'moderate', label: 'Sedang', desc: 'Berjalan / aktif harian' },
@@ -524,9 +532,9 @@ const HydrationCalculator = () => {
                     <button
                       key={act.id}
                       onClick={() => setActivity(act.id as any)}
-                      className={`p-4 rounded-2xl text-left border-2 transition-all ${activity === act.id ? 'border-brand-blue bg-brand-light-blue shadow-sm' : 'border-brand-dark/5 hover:border-brand-dark/10'}`}
+                      className={`p-3.5 sm:p-4 rounded-2xl text-left border-2 transition-all duration-200 ${activity === act.id ? 'border-brand-blue bg-brand-light-blue/60 shadow-sm' : 'border-brand-dark/5 hover:border-brand-dark/10'} active:scale-[0.98] outline-none`}
                     >
-                      <span className="block font-bold text-brand-dark text-base">{act.label}</span>
+                      <span className="block font-bold text-brand-dark text-sm sm:text-base">{act.label}</span>
                       <span className="block text-xs text-brand-dark/65 mt-1">{act.desc}</span>
                     </button>
                   ))}
@@ -545,7 +553,7 @@ const HydrationCalculator = () => {
           </div>
 
           {/* Outputs */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-[#0077B6] to-[#023E8A] p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#0077B6] to-[#023E8A] p-5 xs:p-7 sm:p-10 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
             {/* Ambient glows inside cards */}
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-green/20 rounded-full blur-3xl pointer-events-none" />
             
@@ -566,7 +574,7 @@ const HydrationCalculator = () => {
                   </div>
                   <div className="text-left">
                     <span className="block text-xs text-white/70">Kemasan Botol Besar</span>
-                    <span className="font-bold text-lg">{recommended600ml} Botol <span className="font-normal text-sm text-white/80">per hari</span></span>
+                    <span className="font-bold text-lg">{recommended600ml} Botol <span className="font-normal text-sm text-white/85">per hari</span></span>
                   </div>
                 </div>
 
@@ -577,7 +585,7 @@ const HydrationCalculator = () => {
                   </div>
                   <div className="text-left">
                     <span className="block text-xs text-white/70">Kemasan Botol Mini</span>
-                    <span className="font-bold text-lg">{recommended330ml} Botol <span className="font-normal text-sm text-white/80">per hari</span></span>
+                    <span className="font-bold text-lg">{recommended330ml} Botol <span className="font-normal text-sm text-white/85">per hari</span></span>
                   </div>
                 </div>
 
@@ -588,14 +596,14 @@ const HydrationCalculator = () => {
                   </div>
                   <div className="text-left">
                     <span className="block text-xs text-white/70">Kemasan Cup Gelas</span>
-                    <span className="font-bold text-lg">{recommended220ml} Gelas <span className="font-normal text-sm text-white/80">per hari</span></span>
+                    <span className="font-bold text-lg">{recommended220ml} Gelas <span className="font-normal text-sm text-white/85">per hari</span></span>
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 relative z-10 pt-6 border-t border-white/10 text-center lg:text-left">
-              <a href="#kontak" className="inline-block bg-brand-green hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-full text-base transition-all duration-300 shadow-lg hover:translate-y-[-2px]">
+              <a href="#kontak" className="block sm:inline-block w-full sm:w-auto bg-brand-green hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-full text-base transition-all duration-300 shadow-lg hover:translate-y-[-2px] active:scale-[0.98] text-center">
                 Pesan Paket Hidrasi Sekarang
               </a>
             </div>
@@ -883,7 +891,7 @@ const Contact = () => {
   return (
     <section id="kontak" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-brand-blue rounded-[50px] p-8 md:p-16 text-white grid lg:grid-cols-2 gap-16 shadow-2xl relative overflow-hidden">
+        <div className="bg-brand-blue rounded-[32px] sm:rounded-[50px] p-6 sm:p-10 md:p-16 text-white grid lg:grid-cols-2 gap-16 shadow-2xl relative overflow-hidden">
           {/* Decals */}
           <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
           
