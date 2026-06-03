@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Droplets, MapPin, Instagram, Phone, Mail, ChevronRight, CheckCircle2, ShieldCheck, Leaf } from 'lucide-react';
+import { Menu, X, Droplets, MapPin, Instagram, Phone, Mail, ChevronRight, CheckCircle2, ShieldCheck, Leaf, ChevronDown, MessageSquare, Loader2 } from 'lucide-react';
 
 // --- Components ---
 
@@ -171,11 +171,11 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&q=80&w=1920"
-          alt="Fresh Water Background"
+          src="https://images.unsplash.com/photo-1432406776043-6c761a6d5ae5?auto=format&fit=crop&q=80&w=1920"
+          alt="Majestic Mountain Waterfall Source"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/60 via-brand-dark/30 to-brand-light-blue" />
+        <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/40 to-brand-light-blue" />
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
@@ -437,10 +437,161 @@ const Benefits = () => {
                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
                <img src="https://images.unsplash.com/photo-1582213708182-3c2fb185831d?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
              </div>
-             <div className="space-y-4">
-               <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
-               <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
-             </div>
+              <div className="space-y-4">
+                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
+                <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const HydrationCalculator = () => {
+  const [weight, setWeight] = useState(60);
+  const [activity, setActivity] = useState<'sedentary' | 'moderate' | 'active'>('moderate');
+  const [dailyIntake, setDailyIntake] = useState(2100);
+
+  useEffect(() => {
+    // Formula: Weight in kg * 35 ml
+    let base = weight * 35;
+    // Activity Factor
+    if (activity === 'moderate') base += 350;
+    if (activity === 'active') base += 700;
+    setDailyIntake(Math.round(base));
+  }, [weight, activity]);
+
+  const recommended330ml = Math.ceil(dailyIntake / 330);
+  const recommended600ml = Math.ceil(dailyIntake / 600);
+  const recommended220ml = Math.ceil(dailyIntake / 220);
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-brand-light-blue to-white relative overflow-hidden">
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-brand-green/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-16">
+          <span className="text-brand-blue font-bold tracking-widest text-sm uppercase mb-4 block">Kalkulator Hidrasi Harian</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-brand-dark">Berapa Kebutuhanku?</h2>
+          <p className="text-brand-dark/60 max-w-2xl mx-auto">Tiap tubuh unik dan membutuhkan asupan hidrasi berbeda. Hitung rekomendasi konsumsi harian Anda &amp; produk ELIF yang paling sesuai.</p>
+        </div>
+
+        <div className="bg-white rounded-[40px] shadow-xl border border-brand-blue/10 overflow-hidden grid lg:grid-cols-12 gap-0">
+          {/* Inputs */}
+          <div className="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-brand-dark mb-8">Sesuaikan Parameter Tubuh Anda</h3>
+              
+              {/* Weight Slider */}
+              <div className="mb-10">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="font-semibold text-brand-dark/80">Berat Badan</span>
+                  <span className="text-2xl font-bold text-brand-blue">{weight} <span className="text-sm font-normal text-brand-dark/60">kg</span></span>
+                </div>
+                <input 
+                  type="range" 
+                  min="30" 
+                  max="120" 
+                  value={weight} 
+                  onChange={(e) => setWeight(Number(e.target.value))}
+                  className="w-full h-2 bg-brand-light-blue rounded-lg appearance-none cursor-pointer accent-brand-blue" 
+                />
+                <div className="flex justify-between text-xs text-brand-dark/45 mt-2">
+                  <span>30 kg</span>
+                  <span>75 kg</span>
+                  <span>120 kg</span>
+                </div>
+              </div>
+
+              {/* Activity Level Buttons */}
+              <div className="mb-10">
+                <span className="block font-semibold text-brand-dark/80 mb-4">Tingkat Aktivitas</span>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { id: 'sedentary', label: 'Ringan', desc: 'Bekerja santai / duduk' },
+                    { id: 'moderate', label: 'Sedang', desc: 'Berjalan / aktif harian' },
+                    { id: 'active', label: 'Tinggi', desc: 'Olahraga teratur / aktif' }
+                  ].map((act) => (
+                    <button
+                      key={act.id}
+                      onClick={() => setActivity(act.id as any)}
+                      className={`p-4 rounded-2xl text-left border-2 transition-all ${activity === act.id ? 'border-brand-blue bg-brand-light-blue shadow-sm' : 'border-brand-dark/5 hover:border-brand-dark/10'}`}
+                    >
+                      <span className="block font-bold text-brand-dark text-base">{act.label}</span>
+                      <span className="block text-xs text-brand-dark/65 mt-1">{act.desc}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-brand-light-blue/50 border border-brand-blue/10">
+              <div className="w-10 h-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
+                <Droplets className="w-5 h-5 animate-bounce" />
+              </div>
+              <p className="text-xs text-brand-dark/70 leading-relaxed">
+                Asupan ini merupakan estimasi teruji medis untuk menjaga fungsionalitas metabolik &amp; mencegah dehidrasi ringan.
+              </p>
+            </div>
+          </div>
+
+          {/* Outputs */}
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#0077B6] to-[#023E8A] p-8 md:p-12 text-white flex flex-col justify-between relative overflow-hidden">
+            {/* Ambient glows inside cards */}
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-brand-green/20 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="relative z-10 text-center lg:text-left">
+              <span className="text-white/70 font-semibold tracking-wider text-xs uppercase mb-2 block">Rekomendasi Asupan Harian Anda</span>
+              <div className="flex items-baseline justify-center lg:justify-start gap-2 mb-8">
+                <span className="text-5xl md:text-7xl font-sans font-black tracking-tight text-white">{dailyIntake}</span>
+                <span className="text-2xl font-bold text-[#A0D2EB]">ml / hari</span>
+              </div>
+
+              <div className="space-y-6">
+                <span className="block text-sm font-semibold tracking-wide text-white/80 uppercase">Pilihan Kombinasi ELIF</span>
+                
+                {/* Product 600ml Rec */}
+                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center font-bold text-lg text-brand-green shrink-0">
+                    600ml
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-xs text-white/70">Kemasan Botol Besar</span>
+                    <span className="font-bold text-lg">{recommended600ml} Botol <span className="font-normal text-sm text-white/80">per hari</span></span>
+                  </div>
+                </div>
+
+                {/* Product 330ml Rec */}
+                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center font-bold text-lg text-brand-green shrink-0">
+                    330ml
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-xs text-white/70">Kemasan Botol Mini</span>
+                    <span className="font-bold text-lg">{recommended330ml} Botol <span className="font-normal text-sm text-white/80">per hari</span></span>
+                  </div>
+                </div>
+
+                {/* Product 220ml Rec */}
+                <div className="flex items-center gap-4 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                  <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center font-bold text-lg text-brand-green shrink-0">
+                    220ml
+                  </div>
+                  <div className="text-left">
+                    <span className="block text-xs text-white/70">Kemasan Cup Gelas</span>
+                    <span className="font-bold text-lg">{recommended220ml} Gelas <span className="font-normal text-sm text-white/80">per hari</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 relative z-10 pt-6 border-t border-white/10 text-center lg:text-left">
+              <a href="#kontak" className="inline-block bg-brand-green hover:bg-emerald-500 text-white font-bold py-4 px-8 rounded-full text-base transition-all duration-300 shadow-lg hover:translate-y-[-2px]">
+                Pesan Paket Hidrasi Sekarang
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -526,7 +677,198 @@ const Distributors = () => {
   );
 };
 
+const FAQ = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      q: "Dari mana sumber mata air ELIF berasal?",
+      a: "Air mineral ELIF disaring alami dari mata air pegunungan terpilih di kedalaman vulkanis terlindungi yang kaya akan mineral penting seperti kalsium, magnesium, dan silika."
+    },
+    {
+      q: "Apakah botol ELIF bebas dari BPA (BPA Free)?",
+      a: "Tentu saja! Semua lini kemasan ELIF (220ml, 330ml, dan 600ml) diproduksi menggunakan material PET food-grade premium ramah lingkungan yang 100% bebas dari kandungan senyawa kimia berbahaya (BPA Free)."
+    },
+    {
+      q: "Apakah ELIF sudah bersertifikat halal, SNI, dan terdaftar BPOM?",
+      a: "Ya, seluruh produk kami telah lolos uji kualitas super ketat dan mengantongi sertifikat SNI resmi, izin edar Badan Pengawas Obat dan Makanan (BPOM RI), serta sertifikasi Halal dari Kemenag/MUI."
+    },
+    {
+      q: "Bagaimana cara menjadi distributor atau agen resmi ELIF?",
+      a: "Sangat mudah! Anda dapat mengisi langsung formulir kemitraan pada bagian 'Kontak' di bawah ini atau klik tombol 'Daftar Jadi Distributor'. Tim perwakilan kami di regional Anda akan segera menghubungi Anda dengan paket komisi & skema menarik."
+    },
+    {
+      q: "Berapa minimal pemesanan untuk delivery antar ke alamat rumah/kantor?",
+      a: "Untuk pemesanan ritel/langsung dengan layanan gratis ongkir, minimal pembelian adalah 5 karton (bisa dicampur ukuran / kombinasi sesuai kebutuhan asupan mingguan Anda)."
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <span className="text-brand-blue font-bold tracking-widest text-sm uppercase mb-4 block">Tanya Jawab</span>
+          <h2 className="text-4xl font-bold text-brand-dark mb-4">Pertanyaan Umum (FAQ)</h2>
+          <p className="text-brand-dark/60">Info lengkap seputar kualitas, jaminan kebersihan, dan layanan pembelian ELIF.</p>
+        </div>
+
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => {
+            const isOpen = activeIndex === idx;
+            return (
+              <div 
+                key={idx} 
+                className={`border rounded-2xl transition-all duration-300 ${isOpen ? 'border-brand-blue bg-brand-light-blue/40 shadow-sm' : 'border-brand-dark/5 hover:border-brand-dark/10'}`}
+              >
+                <button
+                  onClick={() => setActiveIndex(isOpen ? null : idx)}
+                  className="w-full flex items-center justify-between p-6 text-left font-semibold text-lg text-brand-dark focus:outline-none"
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown className={`w-5 h-5 text-brand-blue transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-6 text-brand-dark/70 leading-relaxed text-[15px]">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const WhatsAppFloatingWidget = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const sendWhatsApp = (e: FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+    const phone = "6281234567890"; // Ganti dengan nomor WhatsApp customer care Elif yang sesungguhnya
+    const encodedText = encodeURIComponent(`Halo Tim Elif, saya tertarik dengan produk Elif For Life. \n\n${message}`);
+    window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+    setMessage('');
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className="bg-white rounded-3xl shadow-2xl border border-brand-blue/10 p-6 mb-4 w-[320px] overflow-hidden"
+          >
+            <div className="flex items-center gap-3 pb-4 border-b border-brand-dark/5">
+              <div className="w-10 h-10 bg-brand-green rounded-full flex items-center justify-center text-white shrink-0">
+                <MessageSquare className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-brand-dark text-sm">Customer Care ELIF</h4>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[11px] text-emerald-600 font-medium font-sans">Online • Siap Membantu</span>
+                </div>
+              </div>
+              <button 
+                onClick={() => setIsOpen(false)}
+                className="ml-auto text-brand-dark/40 hover:text-brand-dark/80 focus:outline-none"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            
+            <form onSubmit={sendWhatsApp} className="mt-4">
+              <p className="text-xs text-brand-dark/60 mb-3 leading-relaxed">
+                Ada pertanyaan cepat atau ingin langsung pesan? Tulis pesan Anda di bawah ini dan admin kami akan merespon segera.
+              </p>
+              <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Tulis pesan Anda..."
+                rows={3}
+                required
+                className="w-full bg-brand-light-blue/60 border border-brand-blue/10 rounded-xl px-3 py-2 text-sm text-brand-dark focus:outline-none focus:border-brand-blue transition-all"
+              />
+              <button
+                type="submit"
+                className="w-full bg-brand-green hover:bg-emerald-500 text-white py-3 rounded-xl font-bold mt-3 text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-brand-green/10"
+              >
+                <span>Mulai Chat WhatsApp</span>
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-14 h-14 bg-brand-green text-white hover:bg-teal-500 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-105 relative focus:outline-none"
+      >
+        <MessageSquare className="w-6 h-6" />
+        <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 border-2 border-white flex items-center justify-center text-[8px] font-bold text-white">
+          1
+        </span>
+      </button>
+    </div>
+  );
+};
+
 const Contact = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate short loader for premium experience
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setIsSuccess(true);
+      
+      const phone = "6281234567890";
+      const fullName = `${firstName} ${lastName}`.trim();
+      const encodedText = encodeURIComponent(
+        `Halo Tim Elif, saya mengirim form dari Landing Page.\n\n` +
+        `• *Nama:* ${fullName}\n` +
+        `• *Email:* ${email}\n` +
+        `• *Pesan:* ${message}`
+      );
+      
+      window.open(`https://wa.me/${phone}?text=${encodedText}`, '_blank');
+      
+      // Reset form
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setMessage('');
+      
+      // Hide success after 5 seconds
+      setTimeout(() => setIsSuccess(false), 5000);
+    }, 1000);
+  };
+
   return (
     <section id="kontak" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -561,27 +903,84 @@ const Contact = () => {
           </div>
           
           <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20">
-            <form className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2">Nama Depan</label>
-                  <input type="text" className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all" />
+            {isSuccess ? (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="h-full flex flex-col justify-center items-center text-center p-6 bg-emerald-500/10 rounded-2xl border border-emerald-500/20"
+              >
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle2 className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-white">Formulir Terkirim!</h3>
+                <p className="text-white/80 leading-relaxed text-sm max-w-sm">
+                  Mengalihkan Anda ke WhatsApp Customer Care resmi kami untuk konfirmasi & respons kilat...
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Nama Depan</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all text-white placeholder-white/50" 
+                      placeholder="Jane"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">Nama Belakang</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all text-white placeholder-white/50" 
+                      placeholder="Doe"
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2">Nama Belakang</label>
-                  <input type="text" className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all" />
+                  <label className="block text-sm font-semibold mb-2">Email</label>
+                  <input 
+                    type="email" 
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all text-white placeholder-white/50" 
+                    placeholder="email@contoh.com"
+                  />
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2">Email</label>
-                <input type="email" className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all" />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold mb-2">Pesan</label>
-                <textarea rows={4} className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all"></textarea>
-              </div>
-              <button className="w-full bg-white text-brand-blue py-4 rounded-xl font-bold hover:bg-brand-light-blue transition-all">Kirim Pesan</button>
-            </form>
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Pesan</label>
+                  <textarea 
+                    rows={4} 
+                    required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 focus:outline-none focus:border-white transition-all text-white placeholder-white/50"
+                    placeholder="Tulis pesan atau jumlah kebutuhan pesanan Anda..."
+                  />
+                </div>
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-white text-brand-blue py-4 rounded-xl font-bold hover:bg-brand-light-blue transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Mengirim...</span>
+                    </>
+                  ) : (
+                    <span>Kirim Pesan &amp; Mulai WhatsApp</span>
+                  )}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
@@ -633,11 +1032,14 @@ export default function App() {
         <About />
         <Products />
         <Benefits />
+        <HydrationCalculator />
         <InstagramGallery />
         <Distributors />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
+      <WhatsAppFloatingWidget />
     </div>
   );
 }
