@@ -1,6 +1,6 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Droplets, MapPin, Instagram, Phone, Mail, ChevronRight, CheckCircle2, ShieldCheck, Leaf, ChevronDown, MessageSquare, Loader2 } from 'lucide-react';
+import { Menu, X, Droplets, MapPin, Instagram, Phone, Mail, ChevronRight, CheckCircle2, ShieldCheck, Leaf, ChevronDown, MessageSquare, Loader2, Play, Pause, Volume2, VolumeX, Cpu, Brain, Activity, Sparkles, RefreshCw } from 'lucide-react';
 
 // --- Components ---
 
@@ -268,6 +268,199 @@ const Hero = () => {
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.43,147.3,126,211.53,118.31c50.58-6,98.69-24.16,146.56-42H321.39Z"></path>
         </svg>
       </div>
+    </section>
+  );
+};
+
+const BrandVideo = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoError, setVideoError] = useState(false);
+
+  const handlePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch(err => {
+          console.log("Failed to play: ", err);
+          setVideoError(true);
+        });
+      }
+    }
+  };
+
+  const handleMuteUnmute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-brand-light-blue via-white to-brand-light-blue relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        
+        {/* Header Title */}
+        <div className="text-center mb-16">
+          <motion.span 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-brand-blue font-bold tracking-widest text-[#0077B6] text-xs sm:text-sm uppercase mb-3 block"
+          >
+            Mata Air Pegunungan Terlindungi
+          </motion.span>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-dark mb-4 tracking-tight"
+          >
+            Saksikan Kemurnian Alami ELIF
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-brand-dark/70 max-w-2xl mx-auto text-sm sm:text-base md:text-lg"
+          >
+            Dari lereng pegunungan vulkanik yang tinggi, terlindungi dari aktivitas luar untuk memberikan air mineral murni berkualitas tinggi langsung ke Anda.
+          </motion.p>
+        </div>
+
+        {/* Video Card Container */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-3xl overflow-hidden shadow-2xl bg-brand-dark border-4 border-white aspect-video max-w-5xl mx-auto group flex items-center justify-center min-h-[220px] xs:min-h-[280px] sm:min-h-[380px]"
+        >
+          {/* Show fallback loop if video errors or fails to play */}
+          {videoError ? (
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#023E8A] via-[#0077B6] to-emerald-600 flex flex-col items-center justify-center p-8 text-center text-white">
+              <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]" />
+              <Droplets className="w-16 h-16 text-cyan-200 animate-bounce mb-3" />
+              <span className="font-bold text-lg md:text-xl">Aliran Alami Terbuka</span>
+              <span className="text-xs text-white/70 max-w-xs mt-1">Saksikan ekosistem terlindungi menjaga kesegaran mata air alam kami murni setiap saat.</span>
+              
+              {/* Sound wave visual pattern */}
+              <div className="flex gap-1.5 items-center justify-center mt-6 h-8">
+                {[1, 2, 3, 4, 5, 6, 7].map((bar) => (
+                  <span 
+                    key={bar} 
+                    className="w-1 bg-white/70 rounded-full animate-pulse" 
+                    style={{ 
+                      height: `${Math.sin(bar) * 16 + 20}px`,
+                      animationDelay: `${bar * 0.15}s` 
+                    }} 
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              src="https://assets.codepen.io/6093409/river.mp4"
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              onError={() => setVideoError(true)}
+            />
+          )}
+
+          {/* Shadow Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+
+          {/* Bottom Video Controls overlay */}
+          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex justify-between items-center z-20">
+            {/* Status Indicator */}
+            <div className="flex items-center gap-2 bg-black/50 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/15 text-white select-none">
+              <span className="w-2.5 h-2.5 rounded-full bg-brand-green animate-ping" />
+              <span className="text-[9px] sm:text-xs font-bold tracking-wider uppercase">
+                Sinyal Live Mata Air
+              </span>
+            </div>
+
+            {/* Media Playback toggles */}
+            {!videoError && (
+              <div className="flex gap-2">
+                <button 
+                  onClick={handlePlayPause}
+                  className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/95 text-brand-dark hover:bg-white flex items-center justify-center shadow-lg transition-transform active:scale-90 outline-none"
+                  aria-label={isPlaying ? "Jeda Video" : "Putar Video"}
+                >
+                  {isPlaying ? <Pause className="w-4 h-4 fill-brand-dark text-brand-dark" /> : <Play className="w-4 h-4 fill-brand-dark text-brand-dark translate-x-0.5" />}
+                </button>
+
+                <button 
+                  onClick={handleMuteUnmute}
+                  className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/40 backdrop-blur-md hover:bg-black/50 text-white border border-white/10 flex items-center justify-center shadow-lg transition-transform active:scale-90 outline-none"
+                  aria-label={isMuted ? "Aktifkan Suara" : "Senyapkan Video"}
+                >
+                  {isMuted ? <VolumeX className="w-4 h-4 text-white" /> : <Volume2 className="w-4 h-4 text-white" />}
+                </button>
+              </div>
+            )}
+          </div>
+        </motion.div>
+        
+        {/* Small instructional footer */}
+        <p className="text-xs text-brand-dark/50 italic mt-4 text-center">
+          Video merupakan rekaman langsung (loop) aliran mata air pegunungan alami yang dilindungi dari ekosistem ELIF.
+        </p>
+
+        {/* Feature Grid representing steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-16 max-w-5xl mx-auto">
+          {[
+            {
+              icon: <Droplets className="w-6 h-6 text-brand-blue" />,
+              title: "Konservasi Mata Air",
+              desc: "Mata air alami dilindungi dengan radius pengawasan ketat, menjaga ekosistem hutan dan batuan vulkanik asli."
+            },
+            {
+              icon: <ShieldCheck className="w-6 h-6 text-brand-green" />,
+              title: "Filtrasi Alami & Higienis",
+              desc: "Melalui proses higienis otomatis tanpa sentuhan tangan manusia, menjaga kesegaran tetap seperti di sumbernya."
+            },
+            {
+              icon: <Leaf className="w-6 h-6 text-emerald-500" />,
+              title: "Ramah Lingkungan",
+              desc: "Komitmen kelestarian alam melalui penanaman pohon kembali serta botol PET yang 100% dapat didaur ulang."
+            }
+          ].map((item, index) => (
+            <motion.div 
+              key={index}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white/80 backdrop-blur-sm hover:bg-white p-6 rounded-2xl border border-brand-blue/5 shadow-sm hover:shadow-md transition-all duration-300 flex gap-4"
+            >
+              <div className="p-3 bg-brand-light-blue rounded-xl h-fit">
+                {item.icon}
+              </div>
+              <div>
+                <h3 className="font-bold text-brand-dark text-base mb-1.5">{item.title}</h3>
+                <p className="text-brand-dark/70 text-xs sm:text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Background graphic details */}
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-72 h-72 bg-brand-light-blue/40 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-12 right-0 w-96 h-96 bg-brand-blue/5 rounded-full blur-3xl pointer-events-none -z-10" />
     </section>
   );
 };
@@ -914,7 +1107,7 @@ const Contact = () => {
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
                   <Mail className="w-6 h-6" />
                 </div>
-                <span>hello@elif.life</span>
+                <span>hello@elif.co.id</span>
               </div>
               <div className="flex items-center gap-4 text-lg">
                 <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
@@ -1052,6 +1245,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <BrandVideo />
         <About />
         <Products />
         <Benefits />
