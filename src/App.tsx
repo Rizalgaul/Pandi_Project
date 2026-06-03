@@ -171,8 +171,9 @@ const Hero = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1432406776043-6c761a6d5ae5?auto=format&fit=crop&q=80&w=1920"
+          src="https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&q=85&w=1920"
           alt="Majestic Mountain Waterfall Source"
+          referrerPolicy="no-referrer"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/70 via-brand-dark/40 to-brand-light-blue" />
@@ -271,8 +272,9 @@ const About = () => {
             className="relative rounded-[40px] overflow-hidden shadow-2xl"
           >
             <img
-              src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=800"
+              src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=800"
               alt="Mountain Water Source"
+              referrerPolicy="no-referrer"
               className="w-full h-full object-cover"
             />
             <div className="absolute bottom-6 left-6 right-6 glass-card p-6 rounded-2xl">
@@ -320,14 +322,14 @@ const Products = () => {
       size: '220ml',
       type: 'Gelas / Cup',
       desc: 'Praktis untuk berbagai acara formal maupun santai.',
-      image: 'https://images.unsplash.com/photo-1550586678-f7225f03c44b?auto=format&fit=crop&q=80&w=400',
+      image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&q=80&w=600',
       color: 'bg-brand-blue/10'
     },
     {
       size: '330ml',
       type: 'Botol Mini',
       desc: 'Ukuran pas untuk tas kerja atau bekal si kecil.',
-      image: 'https://images.unsplash.com/photo-1616118132261-dd520faac584?auto=format&fit=crop&q=80&w=400',
+      image: 'https://images.unsplash.com/photo-1610970881699-44a5587caa16?auto=format&fit=crop&q=80&w=600',
       color: 'bg-brand-green/10',
       popular: true
     },
@@ -335,7 +337,7 @@ const Products = () => {
       size: '600ml',
       type: 'Botol Personal',
       desc: 'Teman setia mobilitas tinggi sepanjang hari.',
-      image: 'https://images.unsplash.com/photo-1523362628744-0c1fd9f930d4?auto=format&fit=crop&q=80&w=400',
+      image: 'https://images.unsplash.com/photo-1560012206-09647244123f?auto=format&fit=crop&q=80&w=600',
       color: 'bg-brand-dark/10'
     },
   ];
@@ -364,7 +366,12 @@ const Products = () => {
                 </div>
               )}
               <div className="mb-6 rounded-2xl overflow-hidden aspect-square">
-                <img src={product.image} alt={product.size} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img 
+                  src={product.image} 
+                  alt={product.size} 
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                />
               </div>
               <h3 className="text-3xl font-bold mb-1">{product.size}</h3>
               <p className="text-brand-blue font-bold mb-4 uppercase tracking-wider text-xs">{product.type}</p>
@@ -434,12 +441,12 @@ const Benefits = () => {
           
           <div className="lg:w-1/2 grid grid-cols-2 gap-4">
              <div className="space-y-4 pt-12">
-               <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
-               <img src="https://images.unsplash.com/photo-1582213708182-3c2fb185831d?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
+               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Quality Check" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
+               <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Healthy Lifestyle" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
              </div>
               <div className="space-y-4">
-                <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
-                <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=400" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Pure Mountain Spring" className="rounded-3xl shadow-xl w-full h-[350px] object-cover" />
+                <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&q=80&w=400" referrerPolicy="no-referrer" alt="Eco Friendly Nature" className="rounded-3xl shadow-xl w-full h-[250px] object-cover" />
               </div>
           </div>
         </div>
@@ -601,10 +608,10 @@ const HydrationCalculator = () => {
 
 const InstagramGallery = () => {
     const feeds = [
-        "https://images.unsplash.com/photo-1559839734-2b71f1e3c7e?auto=format&fit=crop&q=80&w=400",
-        "https://images.unsplash.com/photo-1596461404969-9ae70f183051?auto=format&fit=crop&q=80&w=400",
-        "https://images.unsplash.com/photo-1450192732951-5a4153094896?auto=format&fit=crop&q=80&w=400",
-        "https://images.unsplash.com/photo-1523362628744-0c1fd9f930d4?auto=format&fit=crop&q=80&w=400",
+        "https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&q=80&w=400",
+        "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&q=80&w=400",
+        "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&q=80&w=400",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=400",
     ];
 
     return (
@@ -624,7 +631,11 @@ const InstagramGallery = () => {
                         key={i} 
                         className="relative group aspect-square overflow-hidden"
                     >
-                        <img src={img} className="w-full h-full object-cover grayscale transition-all group-hover:grayscale-0" />
+                        <img 
+                          src={img} 
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover grayscale transition-all group-hover:grayscale-0" 
+                        />
                         <div className="absolute inset-0 bg-brand-blue/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                             <Instagram className="text-white w-8 h-8" />
                         </div>
