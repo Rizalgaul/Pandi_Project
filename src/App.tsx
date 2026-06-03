@@ -163,7 +163,11 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <a href="#kontak" className="bg-brand-blue text-white text-center py-3 rounded-xl font-bold">
+            <a 
+              href="#kontak" 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="bg-brand-blue text-white text-center py-3 rounded-xl font-bold"
+            >
               Pesan Sekarang
             </a>
           </motion.div>
@@ -337,7 +341,7 @@ const Products = () => {
       size: '330ml',
       type: 'Botol Mini',
       desc: 'Ukuran pas untuk tas kerja atau bekal si kecil.',
-      image: 'https://images.unsplash.com/photo-1610970881699-44a5587caa16?auto=format&fit=crop&q=80&w=600',
+      image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&q=80&w=600',
       color: 'bg-brand-green/10',
       popular: true
     },
@@ -345,7 +349,7 @@ const Products = () => {
       size: '600ml',
       type: 'Botol Personal',
       desc: 'Teman setia mobilitas tinggi sepanjang hari.',
-      image: 'https://images.unsplash.com/photo-1560012206-09647244123f?auto=format&fit=crop&q=80&w=600',
+      image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=600',
       color: 'bg-brand-dark/10'
     },
   ];
