@@ -4,6 +4,91 @@ import { Menu, X, Droplets, MapPin, Instagram, Phone, Mail, ChevronRight, CheckC
 
 // --- Components ---
 
+interface ElifLogoProps {
+  className?: string;
+  dark?: boolean;
+  variant?: 'full' | 'compact' | 'large';
+}
+
+const ElifLogo = ({ className = '', dark = false, variant = 'full' }: ElifLogoProps) => {
+  const textColor = dark ? 'text-white' : 'text-[#356290]';
+  const subtitleColor = dark ? 'text-white/80' : 'text-[#4895EF]';
+  
+  return (
+    <div className={`flex flex-col items-start select-none ${className}`}>
+      <div className="flex flex-col leading-none">
+        <div className="relative flex items-center col">
+          <span 
+            className={`font-serif italic font-black ${textColor} transition-colors duration-300`}
+            style={{ 
+              fontSize: variant === 'compact' ? '28px' : variant === 'large' ? '54px' : '34px',
+              fontFamily: '"Outfit", "Georgia", "Playfair Display", serif',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            E
+            <span className="relative inline-block" style={{ marginLeft: '-0.04em', marginRight: '-0.01em' }}>l</span>
+            <span className="relative inline-block" style={{ marginLeft: '-0.01em', marginRight: '-0.01em' }}>
+              ı
+              <span 
+                className="absolute bg-[#DF2020] rounded-full shadow-sm"
+                style={{ 
+                  width: variant === 'compact' ? '7px' : variant === 'large' ? '12px' : '8px', 
+                  height: variant === 'compact' ? '7px' : variant === 'large' ? '12px' : '8px',
+                  top: variant === 'compact' ? '1px' : variant === 'large' ? '4px' : '2px',
+                  left: '50%',
+                  transform: 'translateX(-50%)' 
+                }} 
+              />
+            </span>
+            <span style={{ marginLeft: '-0.01em' }}>f</span>
+          </span>
+          <span className={`text-[10px] font-bold self-start mt-1.5 ml-0.5 ${dark ? 'text-white/60' : 'text-[#356290]/70'}`}>
+            ®
+          </span>
+        </div>
+        <span 
+          className={`font-sans tracking-[0.2em] font-bold uppercase ${subtitleColor} transition-colors duration-300`}
+          style={{ 
+            fontSize: variant === 'compact' ? '7px' : variant === 'large' ? '13px' : '9px',
+            marginTop: variant === 'compact' ? '-3px' : variant === 'large' ? '-6px' : '-4px',
+            paddingLeft: '2px'
+          }}
+        >
+          Air Mineral
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const ScrollProgressBar = () => {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 right-0 h-[4px] z-[100] bg-transparent pointer-events-none">
+      <motion.div 
+        className="h-full bg-gradient-to-r from-brand-blue via-brand-green to-[#59C3E1] origin-left"
+        style={{ width: `${scrollProgress}%` }}
+        transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+      />
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -25,13 +110,8 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-3' : 'bg-transparent py-5'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <a href="#" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center">
-            <Droplets className="text-white w-6 h-6" />
-          </div>
-          <span className={`text-2xl font-bold tracking-tighter ${isScrolled ? 'text-brand-dark' : 'text-white'}`}>
-            ELIF<span className="text-brand-green">LIFE</span>
-          </span>
+        <a href="#" className="flex items-center gap-2 focus:outline-none">
+          <ElifLogo dark={!isScrolled} variant="compact" />
         </a>
 
         {/* Desktop Menu */}
@@ -107,12 +187,56 @@ const Hero = () => {
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-green/20 backdrop-blur-md border border-brand-green/30 text-brand-green text-xs font-bold uppercase tracking-widest mb-6">
             Murni Dari Alam, Untuk Kehidupan
           </span>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-[1.1]">
-            Kesegaran Sejati <br />
-            <span className="text-brand-blue drop-shadow-sm">ELIF FOR LIFE</span>
-          </h1>
-          <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Menghadirkan kemurnian air mineral pegunungan pilihan untuk menjaga hidrasi dan kesehatan Anda setiap hari.
+          <div className="flex flex-col items-center justify-center mb-8">
+            {/* Elegant large wordmark inspired by the actual logo */}
+            <div className="flex items-center select-none mb-1">
+              <span 
+                className="font-serif italic font-black text-white drop-shadow-[0_4px_12px_rgba(3,62,138,0.4)]"
+                style={{ 
+                  fontSize: 'clamp(55px, 11vw, 105px)',
+                  letterSpacing: '-0.02em',
+                  fontFamily: '"Outfit", "Georgia", "Playfair Display", serif'
+                }}
+              >
+                E
+                <span className="relative inline-block" style={{ marginLeft: '-0.04em', marginRight: '-0.01em' }}>l</span>
+                <span className="relative inline-block" style={{ marginLeft: '-0.01em', marginRight: '-0.01em' }}>
+                  ı
+                  <span 
+                    className="absolute bg-[#DF2020] rounded-full shadow-md animate-pulse"
+                    style={{ 
+                      width: 'clamp(14px, 3.2vw, 24px)', 
+                      height: 'clamp(14px, 3.2vw, 24px)',
+                      top: 'clamp(4px, 1vw, 8px)',
+                      left: '50%',
+                      transform: 'translateX(-50%)' 
+                    }} 
+                  />
+                </span>
+                <span style={{ marginLeft: '-0.01em' }}>f</span>
+              </span>
+              <span className="text-xl md:text-3xl font-bold self-start mt-2 md:mt-4 ml-1 text-white/95 drop-shadow">
+                ®
+              </span>
+            </div>
+            {/* "Air Mineral" in sleek cyan/light blue label matching the logo */}
+            <span className="font-sans tracking-[0.25em] font-extrabold text-sm md:text-xl text-[#A0D2EB] uppercase leading-none drop-shadow-sm mb-4">
+              Air Mineral
+            </span>
+            {/* "Elif for Life" signature brush cursive script logo segment */}
+            <div 
+              className="text-3xl md:text-5xl font-extrabold italic tracking-wide text-gradient font-display drop-shadow-[0_2px_4px_rgba(255,255,255,0.8)] mt-2"
+              style={{
+                background: 'linear-gradient(to right, #59C3E1, #B2F7EF)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              Elif for Life
+            </div>
+          </div>
+          <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed font-medium drop-shadow-sm">
+            Menghadirkan kemurnian air mineral pegunungan pilihan untuk menjaga hidrasi dan daya tahan tubuh lestari Anda setiap hari.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#produk" className="bg-white text-brand-blue px-10 py-4 rounded-full font-bold text-lg hover:bg-brand-light-blue transition-all flex items-center justify-center gap-2 group shadow-xl">
@@ -470,13 +594,8 @@ const Footer = () => {
     <footer className="py-12 border-t border-brand-dark/5 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
-            <a href="#" className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-brand-blue rounded-full flex items-center justify-center">
-                    <Droplets className="text-white w-4 h-4" />
-                </div>
-                <span className="text-xl font-bold tracking-tighter text-brand-dark">
-                    ELIF<span className="text-brand-green">LIFE</span>
-                </span>
+            <a href="#" className="flex items-center gap-2 focus:outline-none">
+                <ElifLogo dark={false} variant="compact" />
             </a>
             
             <div className="flex gap-8 text-sm font-medium text-brand-dark/60">
@@ -507,6 +626,7 @@ const Footer = () => {
 export default function App() {
   return (
     <div className="min-h-screen">
+      <ScrollProgressBar />
       <Navbar />
       <main>
         <Hero />
